@@ -1,7 +1,9 @@
 package com.example.cours2_listdisplay;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,10 +17,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<User> users = initUserList();
-        RecyclerView recyclerView = initRecyclerView();
-        UserAdapter userAdapter = new UserAdapter(users);
-        recyclerView.setAdapter(userAdapter);
+        ArrayList<User> users = initUserList(); //creation d'une liste d'objet
+        RecyclerView recyclerView = initRecyclerView();// recuperation de la recyclerview configure
+        UserAdapter userAdapter = new UserAdapter(users);//creation de l'adapter avec la liste d'objets en parametre
+        recyclerView.setAdapter(userAdapter);//association de l'adapter a la recyclerView
 
         initListener(userAdapter, users);
     }
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private void initListener(UserAdapter adapter, ArrayList<User> users) {
         findViewById(R.id.AM_add_btn).setOnClickListener(view -> {
          users.addAll(users);
-         adapter.notifyDataSetChanged();
+         adapter.notifyDataSetChanged();//informe l'adapter que la liste d'objet qu'il traite a ete modifie
         });
     }
 
@@ -54,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private RecyclerView initRecyclerView() {
-        RecyclerView recyclerView = findViewById(R.id.AM_rv);
+        RecyclerView recyclerView = findViewById(R.id.AM_rv);//la recyclerView est la vue contener qui permet d'acceuillir l'affichage d'items (qui seront crees dans l'adapter)
+        //Je set un linearlayoutManager a la recyclerView afin de lui indiquer comment organiser les vues qu'elle va acceuillire, soit afficher les items les un a cotes des autres ou les un sous les autres comme ici avec VERTICAL
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         return recyclerView;
